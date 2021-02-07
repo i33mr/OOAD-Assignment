@@ -88,7 +88,7 @@ public class Property {
 		this.availableFacilities = availableFacilities;
 		this.availableFeatures = availableFeatures;
 		this.description = description;
-		this.tenantName = agentName;
+		this.tenantName = tenantName;
 		this.agentName = agentName;
 		
 		try {

@@ -14,17 +14,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import java.awt.image.BufferedImage; 
+import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileSystemView;
 
 
 public class projectManagerController {
 	 private MyJFrame view;
 	 private ArrayList<Property> modelPropertyList;
-	 private ArrayList<File> propertyPics;
+	 private ArrayList<File> propertyPics = new ArrayList<>();
 	 private User user;
 	 private ArrayList<requestContactInstance> rentRequestList = new ArrayList<>();
 	 private Property selectedProperty;
@@ -613,8 +614,8 @@ public class projectManagerController {
 			}
 		}
 
-		//Facilities checking
-		for (String st : p.getAvailableFacilities()) {
+		//Features checking
+		for (String st : p.getAvailableFeatures()) {
 			if (st.equals("Air Conditioner")) {
 				view.getEditPage().getAirConditionerCheckBox().setSelected(true);
 			}
@@ -726,138 +727,156 @@ public class projectManagerController {
 			initController();
 		}
 	});
-	
 	view.getNewPropertyPage().getAddButton().addActionListener(new java.awt.event.ActionListener() {
 		public void actionPerformed(java.awt.event.ActionEvent evt) {
 			//TODO add AddButton action
-			String titileName = view.getNewPropertyPage().getNameTextField().getText();
-			double price = Double.parseDouble(view.getNewPropertyPage().getPriceTextField().getText());
-			int size = Integer.parseInt(view.getNewPropertyPage().getSizeTextField().getText());
-			
-			String projectName;
-			String fullAddress = view.getNewPropertyPage().getAddressTextArea().getText();
-			if (view.getNewPropertyPage().getProjectNameTextField().getText() == ""){
-				projectName = (String) view.getNewPropertyPage().getProjectComboBox().getSelectedItem(); //if existing project is selected
-			
-			} else {
-				projectName = (String) view.getNewPropertyPage().getProjectNameTextField().getText();
-			}
-			
-				//Retrieving information from form
-				Address propertyAddress = new Address(projectName, fullAddress);
-				int bedRoomsNum = Integer.parseInt((String)view.getNewPropertyPage().getBedsComboBox().getSelectedItem());
-				int bathRoomsNum = Integer.parseInt((String)view.getNewPropertyPage().getBathsComboBox().getSelectedItem());
-				String propertyType = (String) view.getNewPropertyPage().getPropertyTypeComboBox().getSelectedItem();
-				String furnishing = (String) view.getNewPropertyPage().getFurnishingComboBox().getSelectedItem();
-				String propertyActivationStatus = "Activated";
-				String propertyApprovalStatus = "Pending";
-				String description =  (String) view.getNewPropertyPage().getjTextArea1().getText();
-				String tenantName = null;
-				String agentName = user.getUserName();
-				ArrayList<String> facilityList = new ArrayList<String>();
-				ArrayList<String> featureList = new ArrayList<String>();
+			if (
+				view.getNewPropertyPage().getNameTextField().getText().isEmpty() ||
+				view.getNewPropertyPage().getPriceTextField().getText().isEmpty() ||
+				view.getNewPropertyPage().getSizeTextField().getText().isEmpty() ||
+				view.getNewPropertyPage().getAddressTextArea().getText().isEmpty() ||
+				(view.getNewPropertyPage().getProjectNameTextField().getText().isEmpty() && (((String)view.getNewPropertyPage().getProjectComboBox().getSelectedItem()).equals("New Project")))||
+				view.getNewPropertyPage().getjTextArea1().getText().isEmpty() || propertyPics.isEmpty())
 
-				String[] availableFacilities = new String[4];
-				String[] availableFeatures = new String[7];
-
+			{
+				JOptionPane.showMessageDialog(view,"Please ensure all fields are filled and image has been added");
+				}
+			
+				else {
+				String titileName = view.getNewPropertyPage().getNameTextField().getText();
+				double price = Double.parseDouble(view.getNewPropertyPage().getPriceTextField().getText());
+				int size = Integer.parseInt(view.getNewPropertyPage().getSizeTextField().getText());
 				
-				// Features checking
-				if (view.getNewPropertyPage().getSecurityCheckBox().isSelected()) {
-					featureList.add("24-Hour Security");
-				}
-				if (view.getNewPropertyPage().getParkingCheckBox().isSelected()) {
-					featureList.add("Parking");
-				}
-				if (view.getNewPropertyPage().getGymCheckBox().isSelected()) {
-					featureList.add("Gym");
-				}
-				if (view.getNewPropertyPage().getPlaygroundCheckBox().isSelected()) {
-					featureList.add("Playground");
-				}
-				if (view.getNewPropertyPage().getPoolCheckBox().isSelected()) {
-					featureList.add("Swimming Pool");
-				}
-				if (view.getNewPropertyPage().getSportCheckBox().isSelected()) {
-					featureList.add("Sport Court");
-				}
-				if (view.getNewPropertyPage().getSupermarketCheckBox().isSelected()) {
-					featureList.add("Supermarket");
+				String projectName;
+				String fullAddress = view.getNewPropertyPage().getAddressTextArea().getText();
+				if (view.getNewPropertyPage().getProjectNameTextField().getText().isEmpty()){
+					projectName = (String) view.getNewPropertyPage().getProjectComboBox().getSelectedItem(); //if existing project is selected
+				
+				} else {
+					projectName = (String) view.getNewPropertyPage().getProjectNameTextField().getText();
 				}
 				
+					//Retrieving information from form
+					Address propertyAddress = new Address(projectName, fullAddress);
+					int bedRoomsNum = Integer.parseInt((String)view.getNewPropertyPage().getBedsComboBox().getSelectedItem());
+					int bathRoomsNum = Integer.parseInt((String)view.getNewPropertyPage().getBathsComboBox().getSelectedItem());
+					String propertyType = (String) view.getNewPropertyPage().getPropertyTypeComboBox().getSelectedItem();
+					String furnishing = (String) view.getNewPropertyPage().getFurnishingComboBox().getSelectedItem();
+					String propertyActivationStatus = "Activated";
+					String propertyApprovalStatus = "Pending";
+					String description =  (String) view.getNewPropertyPage().getjTextArea1().getText();
+					String tenantName = "";
+					String agentName = user.getUserName();
+					ArrayList<String> facilityList = new ArrayList<String>();
+					ArrayList<String> featureList = new ArrayList<String>();
 
-				//Facilities checking
-				if (view.getNewPropertyPage().getAirConditionerCheckBox().isSelected()) {
-					facilityList.add("Air Conditioner");
-				}
-				if (view.getNewPropertyPage().getKitchenCabinetCheckBox().isSelected()) {
-					facilityList.add("Kitchen Cabinet");
-				}
-				if (view.getNewPropertyPage().getGardenCheckBox().isSelected()) {
-					facilityList.add("Garden");
-				}
-				if (view.getNewPropertyPage().getGarageCheckBox().isSelected()) {
-					facilityList.add("Garage");
-				}
-				//Convert arraylists to arrays
-				availableFeatures = featureList.toArray(availableFeatures);
-				availableFacilities = facilityList.toArray(availableFacilities);
+					
 
-				Property p = new Property(titileName, price, size, propertyAddress, bedRoomsNum, bathRoomsNum, propertyType, furnishing, propertyActivationStatus, propertyApprovalStatus, availableFacilities, availableFeatures, description, tenantName, agentName);
-				// try{
-				// 	p.savePropertyFile();
-				// } catch (Exception ex){ex.printStackTrace();}
-
-				if (!view.getNewPropertyPage().getProjectNameTextField().getText().equals("")){
-					try{
-						FileWriter ProjectNamesFile = new FileWriter("src/System/Property Manager/Projects.txt", true); 
-						PrintWriter outputNames =  new PrintWriter(ProjectNamesFile);	
-						outputNames.println(view.getNewPropertyPage().getProjectNameTextField().getText());
-
+					
+					// Features checking
+					if (view.getNewPropertyPage().getSecurityCheckBox().isSelected()) {
+						facilityList.add("24-Hour Security");
 					}
-					catch(IOException ex){
-						System.out.println(ex.getMessage());
+					if (view.getNewPropertyPage().getParkingCheckBox().isSelected()) {
+						facilityList.add("Parking");
 					}
-				} 
+					if (view.getNewPropertyPage().getGymCheckBox().isSelected()) {
+						facilityList.add("Gym");
+					}
+					if (view.getNewPropertyPage().getPlaygroundCheckBox().isSelected()) {
+						facilityList.add("Playground");
+					}
+					if (view.getNewPropertyPage().getPoolCheckBox().isSelected()) {
+						facilityList.add("Swimming Pool");
+					}
+					if (view.getNewPropertyPage().getSportCheckBox().isSelected()) {
+						facilityList.add("Sport Court");
+					}
+					if (view.getNewPropertyPage().getSupermarketCheckBox().isSelected()) {
+						facilityList.add("Supermarket");
+					}
+					
 
-				BufferedImage image = null; 
+					//Facilities checking
+					if (view.getNewPropertyPage().getAirConditionerCheckBox().isSelected()) {
+						featureList.add("Air Conditioner");
+					}
+					if (view.getNewPropertyPage().getKitchenCabinetCheckBox().isSelected()) {
+						featureList.add("Kitchen Cabinet");
+					}
+					if (view.getNewPropertyPage().getGardenCheckBox().isSelected()) {
+						featureList.add("Garden");
+					}
+					if (view.getNewPropertyPage().getGarageCheckBox().isSelected()) {
+						featureList.add("Garage");
+					}
+
+					//Convert arraylists to arrays
+					String[] availableFacilities = new String[facilityList.size()];
+					String[] availableFeatures = new String[featureList.size()];
+
+					availableFeatures = featureList.toArray(availableFeatures);
+					availableFacilities = facilityList.toArray(availableFacilities);
+
+					Property p = new Property(titileName, price, size, propertyAddress, bedRoomsNum, bathRoomsNum, propertyType, furnishing, propertyActivationStatus, propertyApprovalStatus, availableFacilities, availableFeatures, description, tenantName, agentName);
+					// try{
+					// 	p.savePropertyFile();
+					// } catch (Exception ex){ex.printStackTrace();}
+
+					if (view.getNewPropertyPage().getProjectNameTextField().isVisible()){
+						try{
+							FileWriter ProjectNamesFile = new FileWriter("src/System/Property Manager/Projects.txt", true); 
+							PrintWriter outputNames =  new PrintWriter(ProjectNamesFile);	
+							outputNames.println(view.getNewPropertyPage().getProjectNameTextField().getText());
+							outputNames.close();
+							ProjectNamesFile.close();
+
+						}
+						catch(IOException ex){
+							System.out.println(ex.getMessage());
+						}
+					} 
+
+					BufferedImage image = null; 
+					
+
+					for (int i =0; i<propertyPics.size();i++){
+						// Path source = Paths.get("c:/temp/testoriginal.txt");
+						// Path destination = Paths.get("c:/temp/testcopied.txt");
 				
+						// Files.copy(source, destination, StandardCopyOption.REPLACE_EXISTING);
+						try{ 
+							File input_file = propertyPics.get(i);
+				
+							image = new BufferedImage(1000, 1000,BufferedImage.TYPE_INT_ARGB); 
+				
+							image = ImageIO.read(input_file); 
+						} 
+						catch(IOException e) 
+						{ 
+							System.out.println("Error: "+e); 
+						} 
+				
+						// WRITE IMAGE 
+						try
+						{ 
+							// Output file path 
+							File output_file = new File("src\\System\\Property Manager\\" + user.getUserName() + "\\Properties\\"+ p.getPropertyID() + "\\propertyPics\\"+i+".png"); 
+				
+							// Writing to file taking type and path as 
+							ImageIO.write(image, "png", output_file); 
+				
+							System.out.println("Writing complete."); 
+						} 
+						catch(IOException e) 
+						{ 
+							System.out.println("Error: "+e); 
+						} 
+					}
 
-				for (int i =0; i<propertyPics.size();i++){
-					// Path source = Paths.get("c:/temp/testoriginal.txt");
-					// Path destination = Paths.get("c:/temp/testcopied.txt");
-			
-					// Files.copy(source, destination, StandardCopyOption.REPLACE_EXISTING);
-					try{ 
-						File input_file = propertyPics.get(i);
-			
-						image = new BufferedImage(1000, 1000,BufferedImage.TYPE_INT_ARGB); 
-			
-						image = ImageIO.read(input_file); 
-					} 
-					catch(IOException e) 
-					{ 
-						System.out.println("Error: "+e); 
-					} 
-			
-					// WRITE IMAGE 
-					try
-					{ 
-						// Output file path 
-						File output_file = new File("src\\System\\Property Manager\\" + user.getUserName() + "\\Properties\\"+ p.getPropertyID() + "\\propertyPics\\"+i+".jpg"); 
-			
-						// Writing to file taking type and path as 
-						ImageIO.write(image, "jpg", output_file); 
-			
-						System.out.println("Writing complete."); 
-					} 
-					catch(IOException e) 
-					{ 
-						System.out.println("Error: "+e); 
-					} 
+
+					initManagePropertyPage();
 				}
-
-
-				view.setPanelToManagePropertiesPage();
 			}
 	});
 	
@@ -955,40 +974,40 @@ public class projectManagerController {
 			
 			// Features checking
 			if (view.getEditPage().getSecurityCheckBox().isSelected()) {
-				featureList.add("24-Hour Security");
+				facilityList.add("24-Hour Security");
 			}
 			if (view.getEditPage().getParkingCheckBox().isSelected()) {
-				featureList.add("Parking");
+				facilityList.add("Parking");
 			}
 			if (view.getEditPage().getGymCheckBox().isSelected()) {
-				featureList.add("Gym");
+				facilityList.add("Gym");
 			}
 			if (view.getEditPage().getPlaygroundCheckBox().isSelected()) {
-				featureList.add("Playground");
+				facilityList.add("Playground");
 			}
 			if (view.getEditPage().getPoolCheckBox().isSelected()) {
-				featureList.add("Swimming Pool");
+				facilityList.add("Swimming Pool");
 			}
 			if (view.getEditPage().getSportCheckBox().isSelected()) {
-				featureList.add("Sport Court");
+				facilityList.add("Sport Court");
 			}
 			if (view.getEditPage().getSupermarketCheckBox().isSelected()) {
-				featureList.add("Supermarket");
+				facilityList.add("Supermarket");
 			}
 			
 
 			//Facilities checking
 			if (view.getEditPage().getAirConditionerCheckBox().isSelected()) {
-				facilityList.add("Air Conditioner");
+				featureList.add("Air Conditioner");
 			}
 			if (view.getEditPage().getKitchenCabinetCheckBox().isSelected()) {
-				facilityList.add("Kitchen Cabinet");
+				featureList.add("Kitchen Cabinet");
 			}
 			if (view.getEditPage().getGardenCheckBox().isSelected()) {
-				facilityList.add("Garden");
+				featureList.add("Garden");
 			}
 			if (view.getEditPage().getGarageCheckBox().isSelected()) {
-				facilityList.add("Garage");
+				featureList.add("Garage");
 			}
 			//Convert arraylists to arrays
 			String[] availableFacilities = new String[4];

@@ -83,9 +83,9 @@ public class SpecificManagerPropertyView extends JPanel{
 	private User propertyManager;
 	private JButton activateButton;
 	private JButton EditButton;
-	private final Action action = new SwingAction();
-	private final Action action_1 = new SwingAction_1();
-	private final Action action_2 = new SwingAction_2();
+//	private final Action action = new SwingAction();
+//	private final Action action_1 = new SwingAction_1();
+//	private final Action action_2 = new SwingAction_2();
 	
 	public SpecificManagerPropertyView() {
 		initialize();
@@ -277,22 +277,23 @@ public class SpecificManagerPropertyView extends JPanel{
 		facilitiesSeparator.setForeground(Color.BLACK);
 		facilitiesSeparator.setPreferredSize(new Dimension(494,1));
 		facilitiesPanel.add(facilitiesSeparator);
-		
-		for(int i = 0; i < currentProperty.getAvailableFacilities().length; ++i) {
-			JPanel facilityHolder = new JPanel();
-			facilityHolder.setPreferredSize(new Dimension(494,100));
-			facilityHolder.setLayout(null);
-			
-			JLabel facilityNameLabel = new JLabel(currentProperty.getAvailableFacilities()[i]);
-			facilityNameLabel.setFont(new Font("Source Sans Pro ExtraLight", Font.PLAIN, 23));
-			facilityNameLabel.setBounds(100, 0, 394, 100);
-			facilityHolder.add(facilityNameLabel);
-			
-			JLabel facilityIconLabel = new JLabel();
-			facilityIconLabel.setBounds(10, 0, 100, 100);
-			facilityIconLabel.setIcon(loadImage("Images/" + currentProperty.getAvailableFacilities()[i] + ".png", 50,50));
-			facilityHolder.add(facilityIconLabel);
-			facilitiesPanel.add(facilityHolder);
+		if(!currentProperty.getAvailableFacilities()[0].equals("")){
+			for(int i = 0; i < currentProperty.getAvailableFacilities().length; ++i) {
+				JPanel facilityHolder = new JPanel();
+				facilityHolder.setPreferredSize(new Dimension(494,100));
+				facilityHolder.setLayout(null);
+				
+				JLabel facilityNameLabel = new JLabel(currentProperty.getAvailableFacilities()[i]);
+				facilityNameLabel.setFont(new Font("Source Sans Pro ExtraLight", Font.PLAIN, 23));
+				facilityNameLabel.setBounds(100, 0, 394, 100);
+				facilityHolder.add(facilityNameLabel);
+				
+				JLabel facilityIconLabel = new JLabel();
+				facilityIconLabel.setBounds(10, 0, 100, 100);
+				facilityIconLabel.setIcon(loadImage("Images/" + currentProperty.getAvailableFacilities()[i] + ".png", 50,50));
+				facilityHolder.add(facilityIconLabel);
+				facilitiesPanel.add(facilityHolder);
+			}
 		}
 	}
 	
@@ -314,21 +315,23 @@ public class SpecificManagerPropertyView extends JPanel{
 		featuresSeparator.setForeground(Color.BLACK);
 		featuresPanel.add(featuresSeparator);
 		
-		for(int i = 0; i < currentProperty.getAvailableFeatures().length;++i) {
-			JPanel featureHolder = new JPanel();
-			featureHolder.setPreferredSize(new Dimension(494,100));
-			featureHolder.setLayout(null);
-			
-			JLabel featureNameLabel = new JLabel(currentProperty.getAvailableFeatures()[i]);
-			featureNameLabel.setFont(new Font("Source Sans Pro ExtraLight", Font.PLAIN, 23));
-			featureNameLabel.setBounds(100, 0, 394, 100);
-			featureHolder.add(featureNameLabel);
-			
-			JLabel featureIconLabel = new JLabel();
-			featureIconLabel.setBounds(10, 0, 100, 100);
-			featureIconLabel.setIcon(loadImage("Images/" + currentProperty.getAvailableFeatures()[i] + ".png", 50,50));
-			featureHolder.add(featureIconLabel);
-			featuresPanel.add(featureHolder);
+		if(!currentProperty.getAvailableFeatures()[0].equals("")){
+			for(int i = 0; i < currentProperty.getAvailableFeatures().length;++i) {
+				JPanel featureHolder = new JPanel();
+				featureHolder.setPreferredSize(new Dimension(494,100));
+				featureHolder.setLayout(null);
+				
+				JLabel featureNameLabel = new JLabel(currentProperty.getAvailableFeatures()[i]);
+				featureNameLabel.setFont(new Font("Source Sans Pro ExtraLight", Font.PLAIN, 23));
+				featureNameLabel.setBounds(100, 0, 394, 100);
+				featureHolder.add(featureNameLabel);
+				
+				JLabel featureIconLabel = new JLabel();
+				featureIconLabel.setBounds(10, 0, 100, 100);
+				featureIconLabel.setIcon(loadImage("Images/" + currentProperty.getAvailableFeatures()[i] + ".png", 50,50));
+				featureHolder.add(featureIconLabel);
+				featuresPanel.add(featureHolder);
+			}
 		}
 	}
 	
@@ -339,12 +342,12 @@ public class SpecificManagerPropertyView extends JPanel{
 		applyToRentPanel.setLayout(null);
 		
 		DeleteButton = new JButton("Delete Property");
-		DeleteButton.setAction(action_2);
+//		DeleteButton.setAction(action_2);
 //		if(currentProperty.getPropertyActivationStatus().equals("Deactivated"))
 			
 		DeleteButton.setBackground(new Color(204, 102, 51));
 		DeleteButton.setFocusable(false);
-		DeleteButton.setBounds(597, 5, 257, 40);
+		DeleteButton.setBounds(675, 30, 300, 40);
 		DeleteButton.setFont(new Font("Source Serif Pro Black", Font.PLAIN, 20));
 		applyToRentPanel.add(DeleteButton);
 		
@@ -394,13 +397,13 @@ public class SpecificManagerPropertyView extends JPanel{
 		managerInfoPanel.add(managerEmailHolder);
 		
 		activateButton = new JButton("Deactivate property");
-		activateButton.setAction(action_1);
-		activateButton.setBounds(93, 10, 257, 40);
+//		activateButton.setAction(action_1);
+		activateButton.setBounds(15, 30, 300, 40);
 		applyToRentPanel.add(activateButton);
 		
 		EditButton = new JButton("Edit Property");
-		EditButton.setAction(action);
-		EditButton.setBounds(265, 0, 89, 23);
+//		EditButton.setAction(action);
+		EditButton.setBounds(345, 30, 300, 40);
 		applyToRentPanel.add(EditButton);
 		
 		
