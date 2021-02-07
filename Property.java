@@ -105,7 +105,9 @@ public class Property {
 		File lastIDFile = new File("src/System/Property Manager/PropertyLastID.txt");
 		if(lastIDFile.exists()) {
 			Scanner lastIDScanner = new Scanner(lastIDFile);
-			return lastIDScanner.nextInt();
+			int lastIDread =lastIDScanner.nextInt();
+			lastIDScanner.close();
+			return lastIDread;
 		}
 		else
 			return 0;

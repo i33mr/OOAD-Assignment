@@ -10,8 +10,12 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Scanner;
 
 import java.awt.image.BufferedImage;
@@ -57,6 +61,17 @@ public class projectManagerController {
 		  this.modelPropertyList = modelPropertyList;
 		  this.view = view;
 	}
+
+	void deleteDir(File file) {
+		File[] contents = file.listFiles();
+		if (contents != null) {
+			for (File f : contents) {
+				deleteDir(f);
+			}
+		}
+		file.delete();
+	}
+
 	public void initLoginPage(){
 			view.setPanelToLogin();
 			view.getLoginPage().getLoginButton().addActionListener(new ActionListener() {
@@ -332,6 +347,7 @@ public class projectManagerController {
 		Scanner projectsNamesFileScannner = new Scanner(projectsNamesFile); 
 		while(projectsNamesFileScannner.hasNext())
 			view.getPropertyManagerHomePage().getProjectsCombobox().addItem(projectsNamesFileScannner.nextLine());
+		projectsNamesFileScannner.close();
 	}
 	
 	private boolean checkCheckbox(int index) {
@@ -526,6 +542,7 @@ public class projectManagerController {
 										  propertyInfoScanner.nextLine(),
 										  propertyInfoScanner.nextLine()
 										  ));
+					propertyInfoScanner.close();
 				}
 		
 //		}
@@ -649,6 +666,7 @@ public class projectManagerController {
 	}
 	public void initSpecificManagerPropertyView(Property p){
 		view.setPanelToSpecificManagerPropertyView(p);
+		selectedProperty = p;
 		view.getSpecificManagerPropertyView().getEditButton().addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				initEditPropertyPage(p);
@@ -658,6 +676,15 @@ public class projectManagerController {
 		view.getSpecificManagerPropertyView().getDeleteButton().addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				//TODO add delete property behaviour
+//				File fileToDelete = new File("src\\System\\Property Manager\\" + user.getUserName() + "\\Properties\\" + selectedProperty.getPropertyID());
+//				deleteDir(fileToDelete);
+				try {
+				Files.walk( Paths.get("src\\System\\Property Manager\\" + user.getUserName() + "\\Properties\\" + selectedProperty.getPropertyID()))
+			    .sorted(Comparator.reverseOrder())
+			    .map(Path::toFile)
+			    .forEach(File::delete);
+				}catch (Exception ex) {ex.printStackTrace();}
+				initManagePropertyPage();
 			}
 		});
 		
@@ -1056,7 +1083,7 @@ public class projectManagerController {
 
 
 
-			view.setPanelToManagePropertiesPage();
+			initManagePropertyPage();
 		
 
 		}
@@ -1070,11 +1097,9 @@ public class projectManagerController {
 		}
 	});
 	
-	view.getEditPage().getKitchenCabinetCheckBox().addActionListener(new java.awt.event.ActionListener() {
+	view.getEditPage().getCancelButton().addActionListener(new java.awt.event.ActionListener() {
 		public void actionPerformed(java.awt.event.ActionEvent evt) {
-		
-		
-		
+			initManagePropertyPage();
 		}
 	});
 	

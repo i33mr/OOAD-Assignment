@@ -498,28 +498,28 @@ public class SpecificManagerPropertyView extends JPanel{
 	// public JLabel getRentRequestLabel() {
 	// 	return rentRequestLabel;
 	// }
-	private class SwingAction extends AbstractAction {
-		public SwingAction() {
-			putValue(NAME, "SwingAction");
-			putValue(SHORT_DESCRIPTION, "Some short description");
-		}
-		public void actionPerformed(ActionEvent e) {
-		}
-	}
-	private class SwingAction_1 extends AbstractAction {
-		public SwingAction_1() {
-			putValue(NAME, "SwingAction_1");
-			putValue(SHORT_DESCRIPTION, "Some short description");
-		}
-		public void actionPerformed(ActionEvent e) {
-		}
-	}
-	private class SwingAction_2 extends AbstractAction {
-		public SwingAction_2() {
-			putValue(NAME, "SwingAction_2");
-			putValue(SHORT_DESCRIPTION, "Some short description");
-		}
-		public void actionPerformed(ActionEvent e) {
-		}
-	}
+//	private class SwingAction extends AbstractAction {
+//		public SwingAction() {
+//			putValue(NAME, "SwingAction");
+//			putValue(SHORT_DESCRIPTION, "Some short description");
+//		}
+//		public void actionPerformed(ActionEvent e) {
+//		}
+//	}
+//	private class SwingAction_1 extends AbstractAction {
+//		public SwingAction_1() {
+//			putValue(NAME, "SwingAction_1");
+//			putValue(SHORT_DESCRIPTION, "Some short description");
+//		}
+//		public void actionPerformed(ActionEvent e) {
+//		}
+//	}
+//	private class SwingAction_2 extends AbstractAction {
+//		public SwingAction_2() {
+//			putValue(NAME, "SwingAction_2");
+//			putValue(SHORT_DESCRIPTION, "Some short description");
+//		}
+//		public void actionPerformed(ActionEvent e) {
+//		}
+//	}
 }

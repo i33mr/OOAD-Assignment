@@ -53,7 +53,9 @@ public abstract class PropertyManager extends User{
     	File lastIDFile = new File("src/System/Property Manager/LastID.txt");
     	if(lastIDFile.exists()) {
     		Scanner lastIDScanner = new Scanner(lastIDFile);
-    		return lastIDScanner.nextInt();
+    		int lastIDread = lastIDScanner.nextInt();
+    		lastIDScanner.close();
+    		return lastIDread;
     	}
     	else
     		return 0;

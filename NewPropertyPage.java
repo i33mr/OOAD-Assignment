@@ -308,6 +308,7 @@ public class NewPropertyPage extends javax.swing.JPanel {
             while(projectsNamesFileScannner.hasNext())
                 projectComboBox.addItem(projectsNamesFileScannner.nextLine());
             projectComboBox.addItem("New Project");
+            projectsNamesFileScannner.close();
         }catch(Exception ex) {
             ex.printStackTrace();
         }

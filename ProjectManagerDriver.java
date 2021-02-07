@@ -59,6 +59,7 @@ public class ProjectManagerDriver {
 							  );
 					if(readProperty.getPropertyApprovalStatus().equals("Approved"))
 						propertyList.add(readProperty);
+					propertyInfoScanner.close();
 				}
 			}
 		
