@@ -104,12 +104,63 @@ public class projectManagerController {
 			view.getLoginPage().getCreateNewAccountLabel().addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
+					// System.out.println("s");// resolve setting multiple unwanted listeners 
+					view.getLoginPage().getLoginButton().removeActionListener(view.getLoginPage().getLoginButton().getActionListeners()[0]);
+					view.getLoginPage().getCreateNewAccountLabel().removeMouseListener(view.getLoginPage().getCreateNewAccountLabel().getMouseListeners()[0]);
 					initSignupPage();
+					
 				}
 			});	
 	} 
 	public void initSignupPage(){
 		view.setPanelToSignup();
+		view.getSignupPage().getLoginLabel().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				initLoginPage(); // resolve setting nultiple unwanted listeners 
+				view.getSignupPage().getLoginLabel().removeMouseListener(view.getSignupPage().getLoginLabel().getMouseListeners()[0]);
+				view.getSignupPage().getSignupButton().removeActionListener(view.getSignupPage().getSignupButton().getActionListeners()[0]);
+			}
+		});
+		
+		view.getSignupPage().getSignupButton().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				view.getSignupPage().getErrorLabel().setForeground(Color.RED);
+				if(view.getSignupPage().getUsernameTextField().getText().isBlank() || view.getSignupPage().getEmailTextField().getText().isBlank() || view.getSignupPage().getFullNameTextField().getText().isBlank() || view.getSignupPage().getMobileNoTextField().getText().isBlank() || new String(view.getSignupPage().getPasswordTextField().getPassword()).isBlank() || new String(view.getSignupPage().getRepeatPasswordTextField().getPassword()).isBlank()) {
+					view.getSignupPage().getErrorLabel().setText("Please Fill all Required Fields");
+				}
+				else if(!Arrays.equals(view.getSignupPage().getPasswordTextField().getPassword(),view.getSignupPage().getRepeatPasswordTextField().getPassword())) {
+					view.getSignupPage().getErrorLabel().setText("Password doesn't match");
+				}
+				else if(!view.getSignupPage().getOwnerToggleButton().isSelected() && !view.getSignupPage().getAgentToggleButton().isSelected()) {
+					view.getSignupPage().getErrorLabel().setText("Please Choose an Account Type");
+				}
+				else if(view.getSignupPage().getLicenseOrGrantIDTextField().getText().isBlank()) {
+					view.getSignupPage().getErrorLabel().setText("Please Enter Your License or Grant Number");
+				}
+				else {
+					File propertyManagers = new File("src/System/Property Manager/");
+					if(Arrays.asList(propertyManagers.list()).contains(view.getSignupPage().getUsernameTextField().getText())){
+						view.getSignupPage().getErrorLabel().setForeground(Color.RED);
+						view.getSignupPage().getErrorLabel().setText("This username is already taken, please choose another username ");
+					}
+					else {
+						if(view.getSignupPage().getAgentToggleButton().isSelected()) {
+							new Agent(view.getSignupPage().getUsernameTextField().getText(), new String(view.getSignupPage().getPasswordTextField().getPassword()), view.getSignupPage().getFullNameTextField().getText(), view.getSignupPage().getMobileNoTextField().getText(), view.getSignupPage().getEmailTextField().getText(), "Property Agent", "Pending", Integer.parseInt(view.getSignupPage().getLicenseOrGrantIDTextField().getText()));
+							view.getSignupPage().getErrorLabel().setForeground(Color.GREEN);
+							view.getSignupPage().getErrorLabel().setText("Your account has been created successfully, please wait for admin approval ");
+						}
+						else if(view.getSignupPage().getOwnerToggleButton().isSelected()) {
+							Owner owner = new Owner(view.getSignupPage().getUsernameTextField().getText(), new String(view.getSignupPage().getPasswordTextField().getPassword()), view.getSignupPage().getFullNameTextField().getText(), view.getSignupPage().getMobileNoTextField().getText(), view.getSignupPage().getEmailTextField().getText(), "Property Agent", "Pending");
+							owner.addToGrantList(view.getSignupPage().getLicenseOrGrantIDTextField().getText());
+							view.getSignupPage().getErrorLabel().setForeground(Color.GREEN);
+							view.getSignupPage().getErrorLabel().setText("Your account has been created successfully, please wait for admin approval ");
+						}
+						view.getSignupPage().resetSignupFields();
+					}
+				}
+			}
+		});
 	} 
 	public void initHomePage(){
 		view.setPanelToHomeAndSearch(modelPropertyList);
@@ -190,7 +241,8 @@ public class projectManagerController {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				view.logOut();
-				initController();// after the logout, set the listeners to login buttons
+//				initController();// after the logout, set the listeners to login buttons
+				initLoginPage();
 			}
 		});	
 		view.getPropertyManagerHomePage().getHomeLabel().addMouseListener(new MouseAdapter() {
@@ -234,51 +286,7 @@ public class projectManagerController {
 //		});	
 		
 		
-		view.getSignupPage().getLoginLabel().addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				initLoginPage();
-			}
-		});
 		
-		view.getSignupPage().getSignupButton().addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				view.getSignupPage().getErrorLabel().setForeground(Color.RED);
-				if(view.getSignupPage().getUsernameTextField().getText().isBlank() || view.getSignupPage().getEmailTextField().getText().isBlank() || view.getSignupPage().getFullNameTextField().getText().isBlank() || view.getSignupPage().getMobileNoTextField().getText().isBlank() || new String(view.getSignupPage().getPasswordTextField().getPassword()).isBlank() || new String(view.getSignupPage().getRepeatPasswordTextField().getPassword()).isBlank()) {
-					view.getSignupPage().getErrorLabel().setText("Please Fill all Required Fields");
-				}
-				else if(!Arrays.equals(view.getSignupPage().getPasswordTextField().getPassword(),view.getSignupPage().getRepeatPasswordTextField().getPassword())) {
-					view.getSignupPage().getErrorLabel().setText("Password doesn't match");
-				}
-				else if(!view.getSignupPage().getOwnerToggleButton().isSelected() && !view.getSignupPage().getAgentToggleButton().isSelected()) {
-					view.getSignupPage().getErrorLabel().setText("Please Choose an Account Type");
-				}
-				else if(view.getSignupPage().getLicenseOrGrantIDTextField().getText().isBlank()) {
-					view.getSignupPage().getErrorLabel().setText("Please Enter Your License or Grant Number");
-				}
-				else {
-					File propertyManagers = new File("src/System/Property Manager/");
-					if(Arrays.asList(propertyManagers.list()).contains(view.getSignupPage().getUsernameTextField().getText())){
-						view.getSignupPage().getErrorLabel().setForeground(Color.RED);
-						view.getSignupPage().getErrorLabel().setText("This username is already taken, please choose another username ");
-					}
-					else {
-						if(view.getSignupPage().getAgentToggleButton().isSelected()) {
-							new Agent(view.getSignupPage().getUsernameTextField().getText(), new String(view.getSignupPage().getPasswordTextField().getPassword()), view.getSignupPage().getFullNameTextField().getText(), view.getSignupPage().getMobileNoTextField().getText(), view.getSignupPage().getEmailTextField().getText(), "Property Agent", "Pending", Integer.parseInt(view.getSignupPage().getLicenseOrGrantIDTextField().getText()));
-							view.getSignupPage().getErrorLabel().setForeground(Color.GREEN);
-							view.getSignupPage().getErrorLabel().setText("Your account has been created successfully, please wait for admin approval ");
-						}
-						else if(view.getSignupPage().getOwnerToggleButton().isSelected()) {
-							Owner owner = new Owner(view.getSignupPage().getUsernameTextField().getText(), new String(view.getSignupPage().getPasswordTextField().getPassword()), view.getSignupPage().getFullNameTextField().getText(), view.getSignupPage().getMobileNoTextField().getText(), view.getSignupPage().getEmailTextField().getText(), "Property Agent", "Pending");
-							owner.addToGrantList(view.getSignupPage().getLicenseOrGrantIDTextField().getText());
-							view.getSignupPage().getErrorLabel().setForeground(Color.GREEN);
-							view.getSignupPage().getErrorLabel().setText("Your account has been created successfully, please wait for admin approval ");
-						}
-						view.getSignupPage().resetSignupFields();
-					}
-				}
-			}
-		});
 		// Remove me later
 		initExtra();
 		
@@ -667,6 +675,7 @@ public class projectManagerController {
 	public void initSpecificManagerPropertyView(Property p){
 		view.setPanelToSpecificManagerPropertyView(p);
 		selectedProperty = p;
+		
 		view.getSpecificManagerPropertyView().getEditButton().addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				initEditPropertyPage(p);
@@ -687,17 +696,24 @@ public class projectManagerController {
 				initManagePropertyPage();
 			}
 		});
-		
+		if(p.getPropertyActivationStatus().equals("Activated"))
+			view.getSpecificManagerPropertyView().getActivationButton().setText("Deactivate");
+		else
+			view.getSpecificManagerPropertyView().getActivationButton().setText("Activate");
 		view.getSpecificManagerPropertyView().getActivationButton().addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				//TODO add toggle behaviour
 				try {
-					if (p.getPropertyActivationStatus().equals("Activated")){
-						replaceLines(new File("src\\System\\Property Manager\\" + user.getUserName() + "\\Properties\\" + p.getPropertyID() + "\\propertyInfo.txt"), "Deactivated", 11);
-						initSpecificManagerPropertyView(p);
-					} else{
+					if (view.getSpecificManagerPropertyView().getActivationButton().getText().equals("Activate")){
 						replaceLines(new File("src\\System\\Property Manager\\" + user.getUserName() + "\\Properties\\" + p.getPropertyID() + "\\propertyInfo.txt"), "Activated", 11);
 						initSpecificManagerPropertyView(p);
+						view.getSpecificManagerPropertyView().getActivationButton().setText("Deactivate");
+						modelPropertyList =  ProjectManagerDriver.readPropertiesFromFiles();
+					}else{
+						replaceLines(new File("src\\System\\Property Manager\\" + user.getUserName() + "\\Properties\\" + p.getPropertyID() + "\\propertyInfo.txt"), "Deactivated", 11);
+						initSpecificManagerPropertyView(p);
+						view.getSpecificManagerPropertyView().getActivationButton().setText("Activate");
+						modelPropertyList =  ProjectManagerDriver.readPropertiesFromFiles();
 					}
 				}catch(Exception ex){ex.printStackTrace();}
 			}
@@ -714,8 +730,9 @@ public class projectManagerController {
 		view.getSpecificManagerPropertyView().getBackIconLabel().addMouseListener(new java.awt.event.MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				initHomePage();
-				initViewDetails(modelPropertyList);
+//				initHomePage();
+//				initViewDetails(modelPropertyList);
+				initManagePropertyPage();
 			}
 		});
 		// view.setPanelToSpecificManagerPropertyView(p);
