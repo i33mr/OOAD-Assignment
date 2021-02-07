@@ -8,6 +8,7 @@ import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Color;
+import java.awt.Dimension;
 
 
 /**
@@ -43,18 +44,18 @@ public class ManagePropertyListing extends javax.swing.JPanel {
         priceLabel = new javax.swing.JLabel();
         priceLabel.setBounds(176, 169, 81, 20);
         addressTitleLabel = new javax.swing.JLabel();
-        addressTitleLabel.setBounds(127, 70, 115, 14);
+        addressTitleLabel.setBounds(127, 98, 115, 14);
         addressLine1Label = new javax.swing.JLabel();
-        addressLine1Label.setBounds(127, 95, 463, 39);
+        addressLine1Label.setBounds(127, 109, 563, 25);
         propertyImageLabel = new javax.swing.JLabel();
         propertyImageLabel.setBounds(0, 11, 121, 189);
         viewDetailsButton = new javax.swing.JButton();
-        viewDetailsButton.setBounds(475, 157, 115, 32);
+        viewDetailsButton.setBounds(575, 164, 115, 32);
         propertyNameLabel = new javax.swing.JLabel();
-        propertyNameLabel.setBounds(127, 42, 201, 17);
+        propertyNameLabel.setBounds(127, 42, 563, 17);
 
         //setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(600, 200));
+        setPreferredSize(new Dimension(693, 200));
         //setResizable(false);
 
         projectNameLabel.setFont(new java.awt.Font("Source Serif Pro Black", 0, 18)); // NOI18N

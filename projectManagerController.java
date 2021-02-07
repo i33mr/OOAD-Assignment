@@ -569,6 +569,8 @@ public class projectManagerController {
 				instance.getAddressLine1Label().setText(properties.get(i).getPropertyAddress().getFullAddress());
 				instance.getPriceLabel().setText(Double.toString(properties.get(i).getPrice()));
 				instance.getPropertyImageLabel().setIcon(loadImage(properties.get(i).getPropertyPicturePath()[0], 121,189));
+				if(properties.get(i).getPropertyActivationStatus().equals("Deactivated"))
+					instance.setBackground(Color.LIGHT_GRAY);
 				propertyListing.add(instance);
 				
 			}

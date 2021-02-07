@@ -221,6 +221,8 @@ public class ManagePropertiesPage extends javax.swing.JPanel {
 //			button.setFocusable(false);
 //			button.setBounds(565, 329, 165, 40);
 //			instance.add(button);
+//			if()
+//			managePropertyListing.get(i).setBackground(Color.LIGHT_GRAY);
 			viewDetailsButtons.add(managePropertyListing.get(i).getViewDetailsButton());
 			
 			panelInsideScrollPane.setPreferredSize(new Dimension(800,300 * (i+1)));
