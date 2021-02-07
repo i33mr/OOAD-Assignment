@@ -41,8 +41,8 @@ public class NewPropertyPage extends javax.swing.JPanel {
         propertyNameLabel = new javax.swing.JLabel();
         priceLabel = new javax.swing.JLabel();
         descLabel = new javax.swing.JLabel();
-        featureLabel = new javax.swing.JLabel();
-        facilityLabel = new javax.swing.JLabel();
+        facilitiesLabel = new javax.swing.JLabel();
+        featuresLabel = new javax.swing.JLabel();
         sizeLabel = new javax.swing.JLabel();
         bedsLabel = new javax.swing.JLabel();
         bathsLabel = new javax.swing.JLabel();
@@ -88,8 +88,8 @@ public class NewPropertyPage extends javax.swing.JPanel {
         propertyNameLabel = new javax.swing.JLabel();
         priceLabel = new javax.swing.JLabel();
         descLabel = new javax.swing.JLabel();
-        featureLabel = new javax.swing.JLabel();
-        facilityLabel = new javax.swing.JLabel();
+        facilitiesLabel = new javax.swing.JLabel();
+        featuresLabel = new javax.swing.JLabel();
         sizeLabel = new javax.swing.JLabel();
         bedsLabel = new javax.swing.JLabel();
         bathsLabel = new javax.swing.JLabel();
@@ -237,9 +237,9 @@ public class NewPropertyPage extends javax.swing.JPanel {
 
         descLabel.setText("Description:");
 
-        featureLabel.setText("Features:");
+        facilitiesLabel.setText("Facilities:");
 
-        facilityLabel.setText("Facilities:");
+        featuresLabel.setText("Features:");
 
         sizeLabel.setText("Size (sq ft. ):");
 
@@ -376,9 +376,9 @@ public class NewPropertyPage extends javax.swing.JPanel {
                                 .addComponent(propertyTypeLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(propertyTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(featureLabel)
+                            .addComponent(facilitiesLabel)
                             .addComponent(airConditionerCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(facilityLabel)
+                            .addComponent(featuresLabel)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(bedsLabel)
                                 .addGap(8, 8, 8)
@@ -472,7 +472,7 @@ public class NewPropertyPage extends javax.swing.JPanel {
                 .addGap(1, 1, 1)
                 .addComponent(descScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(featureLabel)
+                .addComponent(facilitiesLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(airConditionerCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -480,7 +480,7 @@ public class NewPropertyPage extends javax.swing.JPanel {
                     .addComponent(gardenCheckBox)
                     .addComponent(garageCheckBox))
                 .addGap(23, 23, 23)
-                .addComponent(facilityLabel)
+                .addComponent(featuresLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(securityCheckBox)
@@ -625,8 +625,8 @@ public class NewPropertyPage extends javax.swing.JPanel {
     private javax.swing.JButton addImagesButton;
     private javax.swing.JLabel descLabel;
     private javax.swing.JScrollPane descScrollPane;
-    private javax.swing.JLabel featureLabel;
-    private javax.swing.JLabel facilityLabel;
+    private javax.swing.JLabel facilitiesLabel;
+    private javax.swing.JLabel featuresLabel;
     private javax.swing.JCheckBox garageCheckBox;
     private javax.swing.JCheckBox gardenCheckBox;
     private javax.swing.JCheckBox gymCheckBox;
@@ -709,11 +709,11 @@ public class NewPropertyPage extends javax.swing.JPanel {
     public javax.swing.JLabel getAddressLabel() {
         return addressLabel;
     }
-    public javax.swing.JLabel getFacilitiesLabel() {
-        return facilityLabel;
-    }
     public javax.swing.JLabel getFeaturesLabel() {
-        return featureLabel;
+        return featuresLabel;
+    }
+    public javax.swing.JLabel getFacilitiesLabel() {
+        return facilitiesLabel;
     }
     public javax.swing.JLabel getMyPropertiesLabel() {
         return myPropertiesLabel;

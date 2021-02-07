@@ -10,7 +10,7 @@ public class ProjectManagerDriver {
 			modelPropertyList = readPropertiesFromFiles();
 			projectManagerController controller = new projectManagerController(modelPropertyList, new MyJFrame());
 			controller.initLoginPage();
-			//controller.initController();
+//			controller.initController();
 //			for(int i = 0; i < modelPropertyList.get(1).getAvailableFeatures().length;++i) {
 //				System.out.println(modelPropertyList.get(1).getAvailableFeatures()[i]);
 //			}

@@ -7,6 +7,7 @@
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.Color;
 
 
 /**
@@ -20,6 +21,7 @@ public class ManagePropertyListing extends javax.swing.JPanel {
      * Creates new form ManageSpecificPropertyPage
      */
     public ManagePropertyListing() {
+    	setBackground(Color.WHITE);
         initComponents();
         
     }
@@ -35,13 +37,21 @@ public class ManagePropertyListing extends javax.swing.JPanel {
     private void initComponents() {
 
         projectNameLabel = new javax.swing.JLabel();
+        projectNameLabel.setBounds(127, 11, 201, 25);
         priceTitleLabel = new javax.swing.JLabel();
+        priceTitleLabel.setBounds(127, 169, 39, 20);
         priceLabel = new javax.swing.JLabel();
+        priceLabel.setBounds(176, 169, 81, 20);
         addressTitleLabel = new javax.swing.JLabel();
+        addressTitleLabel.setBounds(127, 70, 115, 14);
         addressLine1Label = new javax.swing.JLabel();
+        addressLine1Label.setBounds(127, 95, 463, 39);
         propertyImageLabel = new javax.swing.JLabel();
+        propertyImageLabel.setBounds(0, 11, 121, 189);
         viewDetailsButton = new javax.swing.JButton();
+        viewDetailsButton.setBounds(475, 157, 115, 32);
         propertyNameLabel = new javax.swing.JLabel();
+        propertyNameLabel.setBounds(127, 42, 201, 17);
 
         //setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(600, 200));
@@ -69,60 +79,17 @@ public class ManagePropertyListing extends javax.swing.JPanel {
 
         propertyNameLabel.setFont(new java.awt.Font("Source Serif Pro Black", 0, 12)); // NOI18N
         propertyNameLabel.setText("Property name");
-        
-        
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        layout.setHorizontalGroup(
-        	layout.createParallelGroup(Alignment.LEADING)
-        		.addGroup(layout.createSequentialGroup()
-        			.addComponent(propertyImageLabel, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addGroup(layout.createParallelGroup(Alignment.LEADING)
-        				.addGroup(layout.createSequentialGroup()
-        					.addGroup(layout.createParallelGroup(Alignment.LEADING)
-        						.addComponent(projectNameLabel)
-        						.addGroup(layout.createSequentialGroup()
-        							.addComponent(addressLine1Label, GroupLayout.PREFERRED_SIZE, 154, GroupLayout.PREFERRED_SIZE)
-        							.addGap(42)
-        							.addComponent(priceTitleLabel)
-        							.addPreferredGap(ComponentPlacement.RELATED)
-        							.addComponent(priceLabel))
-        						.addComponent(propertyNameLabel)
-        						.addComponent(addressTitleLabel))
-        					.addPreferredGap(ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
-        					.addComponent(viewDetailsButton, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE))
-        				.addComponent(propertyActivationLabel))
-        			.addContainerGap())
-        );
-        layout.setVerticalGroup(
-        	layout.createParallelGroup(Alignment.LEADING)
-        		.addGroup(layout.createSequentialGroup()
-        			.addContainerGap()
-        			.addGroup(layout.createParallelGroup(Alignment.LEADING)
-        				.addComponent(propertyImageLabel, GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
-        				.addGroup(layout.createSequentialGroup()
-        					.addGroup(layout.createParallelGroup(Alignment.TRAILING)
-        						.addGroup(layout.createSequentialGroup()
-        							.addComponent(projectNameLabel)
-        							.addPreferredGap(ComponentPlacement.RELATED)
-        							.addComponent(propertyNameLabel)
-        							.addPreferredGap(ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-        							.addComponent(propertyActivationLabel)
-        							.addPreferredGap(ComponentPlacement.UNRELATED)
-        							.addComponent(addressTitleLabel)
-        							.addPreferredGap(ComponentPlacement.UNRELATED)
-        							.addGroup(layout.createParallelGroup(Alignment.TRAILING)
-        								.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-        									.addComponent(priceTitleLabel)
-        									.addComponent(priceLabel))
-        								.addComponent(addressLine1Label, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)))
-        						.addGroup(layout.createSequentialGroup()
-        							.addGap(0, 146, Short.MAX_VALUE)
-        							.addComponent(viewDetailsButton, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)))
-        					.addContainerGap())))
-        );
-        setLayout(layout);
+        setLayout(null);
+        add(propertyImageLabel);
+        add(projectNameLabel);
+        add(addressLine1Label);
+        add(priceTitleLabel);
+        add(priceLabel);
+        add(propertyNameLabel);
+        add(addressTitleLabel);
+        add(viewDetailsButton);
+        propertyActivationLabel.setBounds(127, 98, 0, 0);
+        add(propertyActivationLabel);
 
         //pack();
     }// </editor-fold>//GEN-END:initComponents

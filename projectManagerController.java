@@ -14,11 +14,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImage; 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileSystemView;
 
 
@@ -584,6 +583,7 @@ public class projectManagerController {
 	}
 	public void initEditPropertyPage(Property p){
 		view.setPanelToEditPage();
+		selectedProperty = p;
 		view.getEditPage().getPropertyNameLabel().setText(p.getTitileName());
 		view.getEditPage().getPriceTextField().setText(Double.toString(p.getPrice()));
 		view.getEditPage().getPropertyTypeComboBox().setSelectedItem(p.getPropertyType());
@@ -690,245 +690,228 @@ public class projectManagerController {
 				initViewDetails(modelPropertyList);
 			}
 		});
-		view.setPanelToSpecificManagerPropertyView(p);
+		// view.setPanelToSpecificManagerPropertyView(p);
 	
 	}
 	public void initExtra(){
 		//New Property Page//////////////
 		view.getNewPropertyPage().getHomeButton().addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				initHomePage();
-				initViewDetails(modelPropertyList);
-			}
-		});
-		
-		view.getNewPropertyPage().getRentRequestsButton().addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				initRequestsPage();
-			}
-		});
-		
-		view.getNewPropertyPage().getManagePropertiesButton().addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				initManagePropertyPage();
-			}
-		});
-		
-		view.getNewPropertyPage().getNewPropertyPageButton().addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				initNewPropertyPage();
-			}
-		});
-		
-		view.getNewPropertyPage().getLogOutButton().addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				view.logOut();
-				initLoginPage();
-			}
-		});
-		
-		view.getNewPropertyPage().getAddButton().addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				//TODO add AddButton action
-				if (
-					view.getNewPropertyPage().getNameTextField().getText().isEmpty() ||
-					view.getNewPropertyPage().getPriceTextField().getText().isEmpty() ||
-					view.getNewPropertyPage().getSizeTextField().getText().isEmpty() ||
-					view.getNewPropertyPage().getAddressTextArea().getText().isEmpty() ||
-					(view.getNewPropertyPage().getProjectNameTextField().getText().isEmpty() && (((String)view.getNewPropertyPage().getProjectComboBox().getSelectedItem()).equals("New Project")))||
-					view.getNewPropertyPage().getjTextArea1().getText().isEmpty()||propertyPics.isEmpty())
+		public void actionPerformed(java.awt.event.ActionEvent evt) {
+			initHomePage();
+			initViewDetails(modelPropertyList);
+		}
+	});
 	
-				 {
-					JOptionPane.showMessageDialog(view,"Please ensure all fields are filled and image has been added");
-					}
-				
-					else {
-					String titileName = view.getNewPropertyPage().getNameTextField().getText();
-					double price = Double.parseDouble(view.getNewPropertyPage().getPriceTextField().getText());
-					int size = Integer.parseInt(view.getNewPropertyPage().getSizeTextField().getText());
-					
-					String projectName;
-					String fullAddress = view.getNewPropertyPage().getAddressTextArea().getText();
-					if (view.getNewPropertyPage().getProjectNameTextField().getText().isEmpty()){
-						projectName = (String) view.getNewPropertyPage().getProjectComboBox().getSelectedItem(); //if existing project is selected
-					
-					} else {
-						projectName = (String) view.getNewPropertyPage().getProjectNameTextField().getText();
-					}
-					
-						//Retrieving information from form
-						Address propertyAddress = new Address(projectName, fullAddress);
-						int bedRoomsNum = Integer.parseInt((String)view.getNewPropertyPage().getBedsComboBox().getSelectedItem());
-						int bathRoomsNum = Integer.parseInt((String)view.getNewPropertyPage().getBathsComboBox().getSelectedItem());
-						String propertyType = (String) view.getNewPropertyPage().getPropertyTypeComboBox().getSelectedItem();
-						String furnishing = (String) view.getNewPropertyPage().getFurnishingComboBox().getSelectedItem();
-						String propertyActivationStatus = "Activated";
-						String propertyApprovalStatus = "Pending";
-						String description =  (String) view.getNewPropertyPage().getjTextArea1().getText();
-						String tenantName = "";
-						String agentName = user.getUserName();
-						ArrayList<String> facilityList = new ArrayList<String>();
-						ArrayList<String> featureList = new ArrayList<String>();
+	view.getNewPropertyPage().getRentRequestsButton().addActionListener(new java.awt.event.ActionListener() {
+		public void actionPerformed(java.awt.event.ActionEvent evt) {
+			initRequestsPage();
+		}
+	});
 	
-						
+	view.getNewPropertyPage().getManagePropertiesButton().addActionListener(new java.awt.event.ActionListener() {
+		public void actionPerformed(java.awt.event.ActionEvent evt) {
+			initManagePropertyPage();
+		}
+	});
 	
-						
-						// Features checking
-						if (view.getNewPropertyPage().getSecurityCheckBox().isSelected()) {
-							featureList.add("24-Hour Security");
-						}
-						if (view.getNewPropertyPage().getParkingCheckBox().isSelected()) {
-							featureList.add("Parking");
-						}
-						if (view.getNewPropertyPage().getGymCheckBox().isSelected()) {
-							featureList.add("Gym");
-						}
-						if (view.getNewPropertyPage().getPlaygroundCheckBox().isSelected()) {
-							featureList.add("Playground");
-						}
-						if (view.getNewPropertyPage().getPoolCheckBox().isSelected()) {
-							featureList.add("Swimming Pool");
-						}
-						if (view.getNewPropertyPage().getSportCheckBox().isSelected()) {
-							featureList.add("Sport Court");
-						}
-						if (view.getNewPropertyPage().getSupermarketCheckBox().isSelected()) {
-							featureList.add("Supermarket");
-						}
-						
+	view.getNewPropertyPage().getNewPropertyPageButton().addActionListener(new java.awt.event.ActionListener() {
+		public void actionPerformed(java.awt.event.ActionEvent evt) {
+			initNewPropertyPage();
+		}
+	});
 	
-						//Facilities checking
-						if (view.getNewPropertyPage().getAirConditionerCheckBox().isSelected()) {
-							facilityList.add("Air Conditioner");
-						}
-						if (view.getNewPropertyPage().getKitchenCabinetCheckBox().isSelected()) {
-							facilityList.add("Kitchen Cabinet");
-						}
-						if (view.getNewPropertyPage().getGardenCheckBox().isSelected()) {
-							facilityList.add("Garden");
-						}
-						if (view.getNewPropertyPage().getGarageCheckBox().isSelected()) {
-							facilityList.add("Garage");
-						}
+	view.getNewPropertyPage().getLogOutButton().addActionListener(new java.awt.event.ActionListener() {
+		public void actionPerformed(java.awt.event.ActionEvent evt) {
+			view.logOut();
+			initController();
+		}
+	});
 	
-						//Convert arraylists to arrays
-						String[] availableFacilities = new String[facilityList.size()];
-						String[] availableFeatures = new String[featureList.size()];
-	
-						availableFeatures = featureList.toArray(availableFeatures);
-						availableFacilities = facilityList.toArray(availableFacilities);
-	
-						Property p = new Property(titileName, price, size, propertyAddress, bedRoomsNum, bathRoomsNum, propertyType, furnishing, propertyActivationStatus, propertyApprovalStatus, availableFacilities, availableFeatures, description, tenantName, agentName);
-						// try{
-						// 	p.savePropertyFile();
-						// } catch (Exception ex){ex.printStackTrace();}
-	
-						if (view.getNewPropertyPage().getProjectNameTextField().isVisible()){
-							try{
-								FileWriter ProjectNamesFile = new FileWriter("src/System/Property Manager/Projects.txt", true); 
-								PrintWriter outputNames =  new PrintWriter(ProjectNamesFile);	
-								outputNames.println(view.getNewPropertyPage().getProjectNameTextField().getText());
-								outputNames.close();
-								ProjectNamesFile.close();
-	
-							}
-							catch(IOException ex){
-								System.out.println(ex.getMessage());
-							}
-						} 
-	
-						BufferedImage image = null; 
-						
-	
-						for (int i =0; i<propertyPics.size();i++){
-							// Path source = Paths.get("c:/temp/testoriginal.txt");
-							// Path destination = Paths.get("c:/temp/testcopied.txt");
-					
-							// Files.copy(source, destination, StandardCopyOption.REPLACE_EXISTING);
-							try{ 
-								File input_file = propertyPics.get(i);
-					
-								image = new BufferedImage(1000, 1000,BufferedImage.TYPE_INT_ARGB); 
-					
-								image = ImageIO.read(input_file); 
-							} 
-							catch(IOException e) 
-							{ 
-								System.out.println("Error: "+e); 
-							} 
-					
-							// WRITE IMAGE 
-							try
-							{ 
-								// Output file path 
-								File output_file = new File("src\\System\\Property Manager\\" + user.getUserName() + "\\Properties\\"+ p.getPropertyID() + "\\propertyPics\\"+i+".jpg"); 
-					
-								// Writing to file taking type and path as 
-								ImageIO.write(image, "jpg", output_file); 
-					
-								System.out.println("Writing complete."); 
-							} 
-							catch(IOException e) 
-							{ 
-								System.out.println("Error: "+e); 
-							} 
-						}
-	
-	
-						view.setPanelToManagePropertiesPage();
-					}
-				}
-		});
-		
-		view.getNewPropertyPage().getNameTextField().addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-			}
-		});
-		
-		view.getNewPropertyPage().getPropertyTypeComboBox().addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-		
-		
-		
-			}
-		});
-		
-		view.getNewPropertyPage().getKitchenCabinetCheckBox().addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-		
-		
-		
-			}
-		});
-		
-		view.getNewPropertyPage().getaddImagesButton().addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-			//TODO add image picking behavior
-			JFileChooser j = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory()); 
-	  
-			j.setMultiSelectionEnabled(true); 
-			int r = j.showOpenDialog(null); 
-			if (r == JFileChooser.APPROVE_OPTION) { 
-				// get the selelcted files 
-				File files[] = j.getSelectedFiles(); 
-				propertyPics = new ArrayList<File>(Arrays.asList(files));
-				}
-			}
-		});
-		
-		view.getNewPropertyPage().getProjectComboBox().addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				if (view.getNewPropertyPage().getProjectComboBox().getSelectedItem().equals("New Project")){
-					view.getNewPropertyPage().getProjectNameTextField().setVisible(true);
-					view.getNewPropertyPage().getProjectNameTextField().setSize(122, 30);
-				} 
-				else {
-					view.getNewPropertyPage().getProjectNameTextField().setVisible(false);
-				}
+	view.getNewPropertyPage().getAddButton().addActionListener(new java.awt.event.ActionListener() {
+		public void actionPerformed(java.awt.event.ActionEvent evt) {
+			//TODO add AddButton action
+			String titileName = view.getNewPropertyPage().getNameTextField().getText();
+			double price = Double.parseDouble(view.getNewPropertyPage().getPriceTextField().getText());
+			int size = Integer.parseInt(view.getNewPropertyPage().getSizeTextField().getText());
 			
+			String projectName;
+			String fullAddress = view.getNewPropertyPage().getAddressTextArea().getText();
+			if (view.getNewPropertyPage().getProjectNameTextField().getText() == ""){
+				projectName = (String) view.getNewPropertyPage().getProjectComboBox().getSelectedItem(); //if existing project is selected
+			
+			} else {
+				projectName = (String) view.getNewPropertyPage().getProjectNameTextField().getText();
 			}
-		});
+			
+				//Retrieving information from form
+				Address propertyAddress = new Address(projectName, fullAddress);
+				int bedRoomsNum = Integer.parseInt((String)view.getNewPropertyPage().getBedsComboBox().getSelectedItem());
+				int bathRoomsNum = Integer.parseInt((String)view.getNewPropertyPage().getBathsComboBox().getSelectedItem());
+				String propertyType = (String) view.getNewPropertyPage().getPropertyTypeComboBox().getSelectedItem();
+				String furnishing = (String) view.getNewPropertyPage().getFurnishingComboBox().getSelectedItem();
+				String propertyActivationStatus = "Activated";
+				String propertyApprovalStatus = "Pending";
+				String description =  (String) view.getNewPropertyPage().getjTextArea1().getText();
+				String tenantName = null;
+				String agentName = user.getUserName();
+				ArrayList<String> facilityList = new ArrayList<String>();
+				ArrayList<String> featureList = new ArrayList<String>();
+
+				String[] availableFacilities = new String[4];
+				String[] availableFeatures = new String[7];
+
+				
+				// Features checking
+				if (view.getNewPropertyPage().getSecurityCheckBox().isSelected()) {
+					featureList.add("24-Hour Security");
+				}
+				if (view.getNewPropertyPage().getParkingCheckBox().isSelected()) {
+					featureList.add("Parking");
+				}
+				if (view.getNewPropertyPage().getGymCheckBox().isSelected()) {
+					featureList.add("Gym");
+				}
+				if (view.getNewPropertyPage().getPlaygroundCheckBox().isSelected()) {
+					featureList.add("Playground");
+				}
+				if (view.getNewPropertyPage().getPoolCheckBox().isSelected()) {
+					featureList.add("Swimming Pool");
+				}
+				if (view.getNewPropertyPage().getSportCheckBox().isSelected()) {
+					featureList.add("Sport Court");
+				}
+				if (view.getNewPropertyPage().getSupermarketCheckBox().isSelected()) {
+					featureList.add("Supermarket");
+				}
+				
+
+				//Facilities checking
+				if (view.getNewPropertyPage().getAirConditionerCheckBox().isSelected()) {
+					facilityList.add("Air Conditioner");
+				}
+				if (view.getNewPropertyPage().getKitchenCabinetCheckBox().isSelected()) {
+					facilityList.add("Kitchen Cabinet");
+				}
+				if (view.getNewPropertyPage().getGardenCheckBox().isSelected()) {
+					facilityList.add("Garden");
+				}
+				if (view.getNewPropertyPage().getGarageCheckBox().isSelected()) {
+					facilityList.add("Garage");
+				}
+				//Convert arraylists to arrays
+				availableFeatures = featureList.toArray(availableFeatures);
+				availableFacilities = facilityList.toArray(availableFacilities);
+
+				Property p = new Property(titileName, price, size, propertyAddress, bedRoomsNum, bathRoomsNum, propertyType, furnishing, propertyActivationStatus, propertyApprovalStatus, availableFacilities, availableFeatures, description, tenantName, agentName);
+				// try{
+				// 	p.savePropertyFile();
+				// } catch (Exception ex){ex.printStackTrace();}
+
+				if (!view.getNewPropertyPage().getProjectNameTextField().getText().equals("")){
+					try{
+						FileWriter ProjectNamesFile = new FileWriter("src/System/Property Manager/Projects.txt", true); 
+						PrintWriter outputNames =  new PrintWriter(ProjectNamesFile);	
+						outputNames.println(view.getNewPropertyPage().getProjectNameTextField().getText());
+
+					}
+					catch(IOException ex){
+						System.out.println(ex.getMessage());
+					}
+				} 
+
+				BufferedImage image = null; 
+				
+
+				for (int i =0; i<propertyPics.size();i++){
+					// Path source = Paths.get("c:/temp/testoriginal.txt");
+					// Path destination = Paths.get("c:/temp/testcopied.txt");
+			
+					// Files.copy(source, destination, StandardCopyOption.REPLACE_EXISTING);
+					try{ 
+						File input_file = propertyPics.get(i);
+			
+						image = new BufferedImage(1000, 1000,BufferedImage.TYPE_INT_ARGB); 
+			
+						image = ImageIO.read(input_file); 
+					} 
+					catch(IOException e) 
+					{ 
+						System.out.println("Error: "+e); 
+					} 
+			
+					// WRITE IMAGE 
+					try
+					{ 
+						// Output file path 
+						File output_file = new File("src\\System\\Property Manager\\" + user.getUserName() + "\\Properties\\"+ p.getPropertyID() + "\\propertyPics\\"+i+".jpg"); 
+			
+						// Writing to file taking type and path as 
+						ImageIO.write(image, "jpg", output_file); 
+			
+						System.out.println("Writing complete."); 
+					} 
+					catch(IOException e) 
+					{ 
+						System.out.println("Error: "+e); 
+					} 
+				}
+
+
+				view.setPanelToManagePropertiesPage();
+			}
+	});
+	
+	view.getNewPropertyPage().getNameTextField().addActionListener(new java.awt.event.ActionListener() {
+		public void actionPerformed(java.awt.event.ActionEvent evt) {
+	
+	
+		}
+	});
+	
+	view.getNewPropertyPage().getPropertyTypeComboBox().addActionListener(new java.awt.event.ActionListener() {
+		public void actionPerformed(java.awt.event.ActionEvent evt) {
+	
+	
+	
+		}
+	});
+	
+	view.getNewPropertyPage().getKitchenCabinetCheckBox().addActionListener(new java.awt.event.ActionListener() {
+		public void actionPerformed(java.awt.event.ActionEvent evt) {
+	
+	
+	
+		}
+	});
+	
+	view.getNewPropertyPage().getaddImagesButton().addActionListener(new java.awt.event.ActionListener() {
+		public void actionPerformed(java.awt.event.ActionEvent evt) {
+		//TODO add image picking behavior
+		JFileChooser j = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory()); 
+  
+		j.setMultiSelectionEnabled(true); 
+		int r = j.showOpenDialog(null); 
+		if (r == JFileChooser.APPROVE_OPTION) { 
+			// get the selelcted files 
+			File files[] = j.getSelectedFiles(); 
+			propertyPics = new ArrayList<File>(Arrays.asList(files));
+			}
+		}
+	});
+	
+	view.getNewPropertyPage().getProjectComboBox().addActionListener(new java.awt.event.ActionListener() {
+		public void actionPerformed(java.awt.event.ActionEvent evt) {
+			if (view.getNewPropertyPage().getProjectComboBox().getSelectedItem().equals("New Project")){
+				view.getNewPropertyPage().getProjectNameTextField().setVisible(true);
+				view.getNewPropertyPage().getProjectNameTextField().setSize(122, 30);
+			} 
+			else {
+				view.getNewPropertyPage().getProjectNameTextField().setVisible(false);
+			}
 		
+		}
+	});
+	
 	//Edit Property Page////////////////
 	view.getEditPage().getLogOutButton().addActionListener(new java.awt.event.ActionListener() {
 		public void actionPerformed(java.awt.event.ActionEvent evt) {
